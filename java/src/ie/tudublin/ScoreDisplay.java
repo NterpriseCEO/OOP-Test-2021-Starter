@@ -3,6 +3,8 @@ package ie.tudublin;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.jogamp.graph.font.FontSet;
+
 import processing.core.PApplet;
 
 public class ScoreDisplay extends PApplet {
@@ -70,12 +72,15 @@ public class ScoreDisplay extends PApplet {
 	public void draw() {
 		background(255);
 		drawStave();
+		fill(0);
+		strokeWeight(2);
+		textSize(40);
 		drawNotes();
 	}
 
 	public void drawStave() {
 		for(int i = 0; i < 5; i++) {
-			line(width*0.1f, (height*0.15f)+(lineDistance*i), width-(width)*0.1f, (height*0.15f)+lineDistance*i);
+			line(width*0.1f, (height*0.25f)+(lineDistance*i), width-(width)*0.1f, (height*0.25f)+lineDistance*i);
 		}
 	}
 
@@ -85,14 +90,16 @@ public class ScoreDisplay extends PApplet {
 			int pos = positions.get(note.getNote());
 
 			float x = (width*0.15f)+(notesDistance*i);
-			float y = (height*0.15f)+((lineDistance/2)*pos);
-			if(note.getDuration() == 2) {
-				fill(0);
-			}else {
-				noFill();
-			}
+			float y = (height*0.25f)+((lineDistance/2)*pos);
+
 			ellipse(x, y, 25, 20);
 			line(x+12.5f, y, x+12.5f, y-100);
+
+			text(note.getNote(), x, 35);
+
+			if(note.getDuration() == 2) {
+				line(x+12.5f, y-100, x+25, y-80);
+			}
 		}
 	}
 }
