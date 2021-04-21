@@ -9,6 +9,11 @@ public class Note {
 		duration = dur;
 	}
 
+	@Override
+	public String toString() {
+		return "Note [duration=" + duration + ", note=" + note + "]";
+	}
+
 	public char getNote() {
 		return note;
 	}

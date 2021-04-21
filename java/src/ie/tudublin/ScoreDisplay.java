@@ -51,8 +51,12 @@ public class ScoreDisplay extends PApplet {
 	public void draw() {
 		background(255);
 
+		for(int i = 0; i < 5; i++) {
+
+		}
 	}
 
 	void drawNotes() {
+		
 	}
 }
