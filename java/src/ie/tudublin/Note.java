@@ -8,4 +8,12 @@ public class Note {
 		note = n;
 		duration = dur;
 	}
+
+	public char getNote() {
+		return note;
+	}
+
+	public int getDuration() {
+		return duration;
+	}
 }
