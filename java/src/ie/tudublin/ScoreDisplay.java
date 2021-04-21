@@ -42,9 +42,16 @@ public class ScoreDisplay extends PApplet {
 				}
 			}
 		}
-		println(notes.size());
+	}
+
+	public void printScores() {
 		for(int i = 0; i < notes.size(); i++) {
-			println(notes.get(i).getNote(), "- ",notes.get(i).getDuration());
+			print(notes.get(i).getNote(), "- ", notes.get(i).getDuration());
+			if(notes.get(i).getDuration() == 1) {
+				print(" Quaver\n");
+			}else {
+				print(" Crotchet\n");
+			}
 		}
 	}
 
@@ -67,6 +74,7 @@ public class ScoreDisplay extends PApplet {
 
 	public void setup() {
 		loadScore();
+		printScores();
 	}
 
 	public void draw() {
@@ -85,6 +93,7 @@ public class ScoreDisplay extends PApplet {
 	}
 
 	void drawNotes() {
+		float mx = mouseX;
 		for(int i = 0; i < notes.size(); i++) {
 			Note note = notes.get(i);
 			int pos = positions.get(note.getNote());
@@ -92,7 +101,14 @@ public class ScoreDisplay extends PApplet {
 			float x = (width*0.15f)+(notesDistance*i);
 			float y = (height*0.25f)+((lineDistance/2)*pos);
 
+			if(mx >= x && mx < x+25) {
+				fill(255, 0, 0);
+				stroke(255, 0, 0);
+			}
+
 			ellipse(x, y, 25, 20);
+
+
 			line(x+12.5f, y, x+12.5f, y-100);
 
 			text(note.getNote(), x, 35);
@@ -100,6 +116,8 @@ public class ScoreDisplay extends PApplet {
 			if(note.getDuration() == 2) {
 				line(x+12.5f, y-100, x+25, y-80);
 			}
+			fill(0);
+			stroke(0);
 		}
 	}
 }
