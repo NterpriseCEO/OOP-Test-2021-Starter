@@ -12,6 +12,9 @@ public class ScoreDisplay extends PApplet {
 	//String score = "D2E2F2G2A2B2c2d2";
 	String score = "DEF2F2F2EFA2A2B2AFD2E2D2D2D2";
 
+	float lineWidth = 0;
+	float lineDistance = 0;
+
 	void loadScore() {
 		for(int i = 0; i < score.length(); i++) {
 			if(i < score.length()) {
@@ -42,6 +45,10 @@ public class ScoreDisplay extends PApplet {
 
 	public void settings() {
 		size(1000, 500);
+
+		lineWidth = width*0.8f;
+		lineDistance = (height/2)*0.2f;
+		
 	}
 
 	public void setup() {
@@ -50,13 +57,16 @@ public class ScoreDisplay extends PApplet {
 
 	public void draw() {
 		background(255);
+		drawStave();
+	}
 
+	public void drawStave() {
 		for(int i = 0; i < 5; i++) {
-
+			line(width*0.1f, (width*0.15f)+(lineDistance*i), width-(width)*0.1f, (width*0.15f)+lineDistance*i);
 		}
 	}
 
 	void drawNotes() {
-		
+
 	}
 }
