@@ -1,12 +1,14 @@
 package ie.tudublin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import processing.core.PApplet;
 
 public class ScoreDisplay extends PApplet {
 
 	ArrayList<Note> notes = new ArrayList<Note>();
+	HashMap<Character, Integer> positions = new HashMap<Character, Integer>();
 
 	//String score = "DEFGABcd";
 	//String score = "D2E2F2G2A2B2c2d2";
@@ -14,6 +16,7 @@ public class ScoreDisplay extends PApplet {
 
 	float lineWidth = 0;
 	float lineDistance = 0;
+	float notesDistance = 0;
 
 	void loadScore() {
 		for(int i = 0; i < score.length(); i++) {
@@ -47,8 +50,17 @@ public class ScoreDisplay extends PApplet {
 		size(1000, 500);
 
 		lineWidth = width*0.8f;
-		lineDistance = (height/2)*0.2f;
-		
+		lineDistance = (height/2)*0.15f;
+		notesDistance = lineWidth/18;
+
+		positions.put('D', 9);
+		positions.put('E', 8);
+		positions.put('F', 7);
+		positions.put('G', 6);
+		positions.put('A', 5);
+		positions.put('B', 4);
+		positions.put('c', 3);
+		positions.put('d', 2);
 	}
 
 	public void setup() {
@@ -58,15 +70,29 @@ public class ScoreDisplay extends PApplet {
 	public void draw() {
 		background(255);
 		drawStave();
+		drawNotes();
 	}
 
 	public void drawStave() {
 		for(int i = 0; i < 5; i++) {
-			line(width*0.1f, (width*0.15f)+(lineDistance*i), width-(width)*0.1f, (width*0.15f)+lineDistance*i);
+			line(width*0.1f, (height*0.15f)+(lineDistance*i), width-(width)*0.1f, (height*0.15f)+lineDistance*i);
 		}
 	}
 
 	void drawNotes() {
+		for(int i = 0; i < notes.size(); i++) {
+			Note note = notes.get(i);
+			int pos = positions.get(note.getNote());
 
+			float x = (width*0.15f)+(notesDistance*i);
+			float y = (height*0.15f)+((lineDistance/2)*pos);
+			if(note.getDuration() == 2) {
+				fill(0);
+			}else {
+				noFill();
+			}
+			ellipse(x, y, 25, 20);
+			line(x+12.5f, y, x+12.5f, y-100);
+		}
 	}
 }
